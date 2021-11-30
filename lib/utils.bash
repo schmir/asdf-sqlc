@@ -34,12 +34,12 @@ list_all_versions() {
 }
 
 download_release() {
-  local version filename url
+  local version filename url platform
   version="$1"
   filename="$2"
+  platform=$(uname -s | tr "A-Z" "a-z")
 
-  # TODO: Adapt the release URL convention for sqlc
-  url="$GH_REPO/releases/download/v${version}/sqlc_${version}_linux_amd64.tar.gz"
+  url="$GH_REPO/releases/download/v${version}/sqlc_${version}_${platform}_amd64.tar.gz"
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
